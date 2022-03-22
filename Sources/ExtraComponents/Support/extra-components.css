@@ -1,0 +1,75 @@
+/* markbattistella.com | Mark Battistella | ExtraComponentsPublishPlugin CSS */
+
+.component-alert-container {
+
+	/* colours */
+	--component-colour-red: rgb(229 62 62);
+	--component-colour-orange: rgb(237 171 38);
+	--component-colour-green: rgb(54 173 153);
+	--component-colour-blue: rgb(66 132 251);
+
+	/* sizes */
+	--component-size-border-radius: 5;
+}
+
+.component-alert-container {
+	align-content: stretch;
+	align-items: stretch;
+	background: rgba(255, 255, 255, 0.05);
+	border: 1px solid rgba(255, 255, 255, 0.3);
+	border-radius: calc( var(--component-size-border-radius) * 0.1em );
+	display: flex;
+	margin: 1rem 0;
+}
+
+.component-alert-body {
+	display: flex;
+	padding: 1rem;
+}
+
+.component-alert-icon {
+	padding-right: 1rem;
+}
+
+.component-alert-icon svg {
+	width: 24px;
+	height: 24px;
+}
+
+.component-alert-text h5 {
+	font-size: 1.2rem;
+}
+
+.component-alert-text p:last-child {
+	margin-bottom: 0;
+}
+
+
+/* alert: border */
+.component-alert-container.component-colour-red {
+	border-left: 1em solid var(--component-colour-red);
+}
+.component-alert-container.component-colour-orange {
+	border-left: 1em solid var(--component-colour-orange);
+}
+.component-alert-container.component-colour-green {
+	border-left: 1em solid var(--component-colour-green);
+}
+.component-alert-container.component-colour-blue {
+	border-left: 1em solid var(--component-colour-blue);
+}
+
+/* alert: icon */
+.component-alert-container.component-colour-red svg {
+	fill: var(--component-colour-red);
+}
+.component-alert-container.component-colour-orange svg {
+	fill: var(--component-colour-orange);
+}
+.component-alert-container.component-colour-green svg {
+	fill: var(--component-colour-green);
+}
+.component-alert-container.component-colour-blue svg {
+	fill: var(--component-colour-blue);
+}
+

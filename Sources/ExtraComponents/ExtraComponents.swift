@@ -6,77 +6,75 @@
 import Publish
 import Plot
 import Ink
+import Files
 
 
-// -- create the plugin
+// MARK: - the alert
+struct AlertBuilder {
+	let type: AlertTypes
+	let icon: SVGPaths
+
+	enum AlertTypes: String {
+		case error = "!"
+		case warning = "%"
+		case success = "/"
+		case information = "?"
+	}
+}
+
+
+// MARK: - create the plugin
 public extension Plugin {
-	static func addExtraComponents(width: Int = 5) -> Self {
+	static func addExtraComponents(addCss: Bool = true) -> Self {
 		Plugin(name: "ExtraComponents") { context in
-			context.markdownParser.addModifier( .addAlertInfo(width: width))
-			context.markdownParser.addModifier( .addAlertWarning(width: width))
-			context.markdownParser.addModifier( .addAlertError(width: width))
-			context.markdownParser.addModifier( .addAlertSuccess(width: width))
+
+			// -- add all our modifiers here
+			let modifiers: [Modifier] = [
+				.addAlert(alert: AlertBuilder(type: .error, icon: .xCircle)),
+				.addAlert(alert: AlertBuilder(type: .warning, icon: .alert)),
+				.addAlert(alert: AlertBuilder(type: .success, icon: .checkCircle)),
+				.addAlert(alert: AlertBuilder(type: .information, icon: .info)),
+				.addDownload()
+			]
+
+			// -- write the css file
+			if( addCss ) {
+				let cssFile = try context.createOutputFile(at: "assets/css/extra-components.css")
+				try cssFile.write(extraComponentsCssFile())
+			}
+
+			// -- add them to the plugins
+			for modifier in modifiers {
+				context.markdownParser.addModifier(modifier)
+			}
 		}
 	}
 }
 
 
-// -- create the modifiers
+// MARK: - create the modifiers
 public extension Modifier {
 
-	// -- alert: info
-	static func addAlertInfo(width: Int) -> Self {
-		return Modifier(target: .blockquotes) { html, markdown in
-			ComponentAlert()
-				.create(
-					alert: ComponentAlert.AlertBuilder(
-						signifier: "?", icon: .info, colour: "rgb(66 132 251)", width: width
-					),
-					html: html,
-					markdown: markdown
-				)
+	internal static func addAlert(alert: AlertBuilder) -> Self {
+		Modifier(target: .blockquotes) { html, markdown in
+			return AdditionalComponents()
+				.create(alert: alert, html: html, markdown: markdown)
 		}
 	}
 
-	// -- alert: warning
-	static func addAlertWarning(width: Int) -> Self {
-		return Modifier(target: .blockquotes) { html, markdown in
-			ComponentAlert()
-				.create(
-					alert: ComponentAlert.AlertBuilder(
-						signifier: "%", icon: .alert, colour: "rgb(237 171 38)", width: width
-					),
-					html: html,
-					markdown: markdown
-				)
+	static func addDownload() -> Self {
+		Modifier(target: .links) { html, markdown in
+			return AdditionalComponents()
+				.create(html: html, markdown: markdown)
 		}
 	}
+}
 
-	// -- alert: error
-	static func addAlertError(width: Int) -> Self {
-		return Modifier(target: .blockquotes) { html, markdown in
-			ComponentAlert()
-				.create(
-					alert: ComponentAlert.AlertBuilder(
-						signifier: "!", icon: .stop, colour: "rgb(229 62 62)", width: width
-					),
-					html: html,
-					markdown: markdown
-				)
-		}
-	}
 
-	// -- alert: success
-	static func addAlertSuccess(width: Int) -> Self {
-		return Modifier(target: .blockquotes) { html, markdown in
-			ComponentAlert()
-				.create(
-					alert: ComponentAlert.AlertBuilder(
-						signifier: "/", icon: .checkCircle, colour: "rgb(54 173 153)", width: width
-					),
-					html: html,
-					markdown: markdown
-				)
-		}
-	}
+// MARK: - custom CSS file
+fileprivate func extraComponentsCssFile() -> String {
+	return try! File(path: #filePath)
+		.parent?
+		.file(named: "Support/extra-components.css")
+		.readAsString() as! String
 }
