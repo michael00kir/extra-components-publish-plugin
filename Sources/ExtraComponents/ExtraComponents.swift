@@ -9,20 +9,6 @@ import Ink
 import Files
 
 
-// MARK: - the alert
-struct AlertBuilder {
-	let type: AlertTypes
-	let icon: SVGPaths
-
-	enum AlertTypes: String {
-		case error = "!"
-		case warning = "%"
-		case success = "/"
-		case information = "?"
-	}
-}
-
-
 // MARK: - create the plugin
 public extension Plugin {
 	static func addExtraComponents(addCss: Bool = true) -> Self {
@@ -30,7 +16,7 @@ public extension Plugin {
 
 			// -- add all our modifiers here
 			let modifiers: [Modifier] = [
-				.addAlert(alert: AlertBuilder(type: .error, icon: .xCircle)),
+				.addAlert(alert: .init(type: .error, icon: .xCircle)),
 				.addAlert(alert: AlertBuilder(type: .warning, icon: .alert)),
 				.addAlert(alert: AlertBuilder(type: .success, icon: .checkCircle)),
 				.addAlert(alert: AlertBuilder(type: .information, icon: .info)),
@@ -65,7 +51,7 @@ public extension Modifier {
 	static func addDownload() -> Self {
 		Modifier(target: .links) { html, markdown in
 			return AdditionalComponents()
-				.create(html: html, markdown: markdown)
+				.create(specifier: .download, html: html, markdown: markdown)
 		}
 	}
 }

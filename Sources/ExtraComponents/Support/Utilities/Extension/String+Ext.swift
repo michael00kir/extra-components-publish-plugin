@@ -6,7 +6,9 @@
 import Foundation
 
 extension String {
+	
 	mutating func add(prefix: String) {
 		self = prefix + self
 	}
+	
 }
