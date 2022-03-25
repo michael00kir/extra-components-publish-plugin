@@ -7,7 +7,6 @@ import Foundation
 
 // from: https://github.com/finestructure/ImageAttributesPublishPlugin
 extension Substring {
-
 	func content(delimitedBy delimiter: Delimiter) -> Substring? {
 
 		guard let delimPos = self.firstIndex(of: delimiter.opening) else {

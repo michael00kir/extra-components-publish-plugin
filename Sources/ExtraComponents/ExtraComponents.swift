@@ -3,10 +3,10 @@
 //	@markbattistella
 //
 
-import Publish
-import Plot
 import Ink
+import Plot
 import Files
+import Publish
 
 
 // MARK: - create the plugin
@@ -16,11 +16,15 @@ public extension Plugin {
 
 			// -- add all our modifiers here
 			let modifiers: [Modifier] = [
+				// -- alerts
 				.addAlert(alert: .init(type: .error, icon: .xCircle)),
-				.addAlert(alert: AlertBuilder(type: .warning, icon: .alert)),
-				.addAlert(alert: AlertBuilder(type: .success, icon: .checkCircle)),
-				.addAlert(alert: AlertBuilder(type: .information, icon: .info)),
-				.addDownload()
+				.addAlert(alert: BlockquoteAlert(type: .warning, icon: .alert)),
+				.addAlert(alert: BlockquoteAlert(type: .success, icon: .checkCircle)),
+				.addAlert(alert: BlockquoteAlert(type: .information, icon: .info)),
+
+				// -- full width items
+				.addBlockItem(item: AnchorType(type: .download, icon: .download)),
+				.addBlockItem(item: AnchorType(type: .reference, icon: .arrowRight))
 			]
 
 			// -- write the css file
@@ -41,17 +45,17 @@ public extension Plugin {
 // MARK: - create the modifiers
 public extension Modifier {
 
-	internal static func addAlert(alert: AlertBuilder) -> Self {
+	internal static func addAlert(alert: BlockquoteAlert) -> Self {
 		Modifier(target: .blockquotes) { html, markdown in
 			return AdditionalComponents()
 				.create(alert: alert, html: html, markdown: markdown)
 		}
 	}
 
-	static func addDownload() -> Self {
+	internal static func addBlockItem(item: AnchorType) -> Self {
 		Modifier(target: .links) { html, markdown in
 			return AdditionalComponents()
-				.create(specifier: .download, html: html, markdown: markdown)
+				.create(item: item, html: html, markdown: markdown)
 		}
 	}
 }

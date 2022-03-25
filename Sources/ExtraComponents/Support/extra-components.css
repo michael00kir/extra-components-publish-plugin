@@ -1,25 +1,22 @@
 /* markbattistella.com | Mark Battistella | ExtraComponentsPublishPlugin CSS */
 
 .component-container {
-
-	/* variables */
 	--component-colour-red: 229, 62, 62;
 	--component-colour-orange: 237, 171, 38;
 	--component-colour-green: 54, 173, 153;
 	--component-colour-blue: 66, 132, 251;
 	--component-colour-gray: 130, 130, 130;
 	--component-colour-grey: var(--component-colour-gray);
-
 	--component-colour-white: 255, 255, 255;
 	--component-colour-black: 0, 0, 0;
-
-
 	--component-size-border-radius: 0.5em;
+}
 
-	/* main */
+
+.component-container {
 	display: flex;
-	background: rgba(var(--component-colour-white), 0.05);
-	border: 1px solid rgba(var(--component-colour-white), 0.5);
+	background: rgba(var(--component-colour-black), 0.05);
+	border: 1px solid rgba(var(--component-colour-black), 0.5);
 	border-radius: var(--component-size-border-radius);
 	margin: 1rem 0;
 	align-content: stretch;
@@ -27,13 +24,23 @@
 }
 
 
-
-/* svg */
-.component-container svg { width: 24px; height: 24px; fill: rgba(var(--component-colour-black), 0.5); }
-.component-container.component-colour-red	 svg { fill: rgb(var(--component-colour-red)); }
-.component-container.component-colour-orange svg { fill: rgb(var(--component-colour-orange)); }
-.component-container.component-colour-green	 svg { fill: rgb(var(--component-colour-green)); }
-.component-container.component-colour-blue	 svg { fill: rgb(var(--component-colour-blue)); }
+.component-container svg {
+	width: 24px;
+	height: 24px;
+	fill: rgba(var(--component-colour-black), 0.5);
+}
+.component-container.component-colour-red svg {
+	fill: rgb(var(--component-colour-red));
+}
+.component-container.component-colour-orange svg {
+	fill: rgb(var(--component-colour-orange));
+}
+.component-container.component-colour-green svg {
+	fill: rgb(var(--component-colour-green));
+}
+.component-container.component-colour-blue svg {
+	fill: rgb(var(--component-colour-blue));
+}
 
 
 .component-body {
@@ -42,37 +49,18 @@
 	flex-grow: 1;
 	position: relative;
 }
-
 .component-icon {
 	padding-right: 1rem;
 }
-
 .component-text p:last-child {
 	margin-bottom: 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 .component-alert {
 	border-left-width: 0.5em;
 	border-left-style: solid;
 }
-
 .component-alert.component-colour-red {
 	border-left-color: rgb(var(--component-colour-red));
 }
@@ -87,38 +75,17 @@
 }
 
 
-
-
-
-
-
-/* download */
-.component-container.component-download a {
+.component-container.component-banner a {
 	border: 0;
 	text-decoration: none;
 	line-height: 1.5em;
 	font-weight: bold;
-	left: 0;
-	transition: left 200ms;
 }
-
-.component-container.component-download a:hover {
-	left: 2px;
-}
-
-.component-download .component-body:after {
+.component-banner .component-body:after {
 	content: attr(data-name);
 	font-size: 0.8em;
 	color: rgba(var(--component-colour-gray), 0.7);
 	font-weight: 200;
 	margin-left: auto;
 	line-height: 200%;
-}
-
-
-
-
-
-@media (prefers-color-scheme: dark) {
-	.component-container svg { fill: #EEE; }
 }

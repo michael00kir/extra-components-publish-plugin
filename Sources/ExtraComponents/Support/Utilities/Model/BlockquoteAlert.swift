@@ -5,7 +5,7 @@
 
 import Foundation
 
-struct AlertBuilder {
+struct BlockquoteAlert {
 	let type: AlertTypes
 	let icon: SVGPaths
 
