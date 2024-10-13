@@ -1,4 +1,4 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.5
 
 // ExtraComponents plugin for Publish
 // Copyright (c) Mark Battistella 2022
@@ -8,6 +8,7 @@ import PackageDescription
 
 let package = Package(
 	name: "ExtraComponents",
+	platforms: [.macOS(.v12)],
 	products: [
 		.library(
 			name: "ExtraComponents",
